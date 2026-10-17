@@ -1,0 +1,13 @@
+// These are LOCKED (scrambled) texts. They cannot be read without the password.
+// Made with scripts/encrypt.mjs. Safe to keep in GitHub.
+export const lockedLetter2025 = {
+  "salt": "nqeEwHnYwELDVR6u8C5h5g==",
+  "iv": "tNtquk9G64jZM2ZV",
+  "data": "vjc4MjqAuauVsWEWb3mREW9NsFegNLlgRlcG1Kne/qH3CKbcKRVaFjZZaJVheWQ0arGnGz3EqTkompkadcIKB+ZJE5WpHZVPB/EbKHjq0muf5ot1DqIHVDL7erkAtM9nj+z017rpq/PnHurSO9ZcdF2Laob1Coky7TqhDNowek9x4IJ2S0fg1vtvfh/eAOLLme7+2MQ0jsAsb4XJGbJ1Eg7YgmCJoYJI1UVBbOld8bWnfk4qNkBA0NR+5HFwxVPhps13DQuvK7DdfLuhlJO+a+cN3F9fQvipDR9sXJMNz41p5TG/hSFJvWyby5Ml4pM8bI33NnTb30bHP9yxTPqXxocM5J0dCWWaZMSGhqs2QUtsoRhUOzMwsUDICvBIrXRGH1cLYS0+9E3qIkZyJLmBDOcqrRphZubiQOMbxN6nBn9nfQcg8OkGXCFf/n1l4mddYvjUsGFnt2/LrUPzVhCExtfT5C12a1fYCnf4POnBT5wwr+YXPDh6DlVUE2x1YPsKvgmtZ2NHt3lgn/NenjMrxbvITrs5PGytjTFY8xDJMJneAX0Pxo9R/t92DxA13Zegzk0/MjnhoUvj14Q2rnveCmBZW5+6ZLvofW9LtbYH12YDJeNKjWl6pemJrojHl9di42JdYjJpLkClpVVgEPXF4rCuaRY4c32iLBa2/NCi51f5TaZ3GAZVwdR5xah4Gtf2IA1gWwZg1oviZ8YL2rpTaEuedty8S33oJfyUcV7bh5h9u34lA1uiJ0si23+KVxyAw03I/6FHQa/mdzfpru0TmiaOtjMG5xTwWc2iK+EW23DObhfcO1fxTjJ0LDGQu8WjIui6oi96xGcr7+fyg/dxqbbj3bBNwcJ0NikSugV0ATvdn79pnhfxbljrpFLnLnK+11rShx0sNVEI90ZWgVLRyXVsaXVdijrSyxadzKUdTKJcHk46RrytYaO35FqXfL79zQrTSfAXgXeCbgw9ns2yVm+kaVZKMOBR"
+};
+
+export const lockedPromise2025 = {
+  "salt": "Y4ZSDpYgK0SSF2fD85KeoA==",
+  "iv": "UIY0G2PA6wN2twHk",
+  "data": "pPnWAU7ZDLUg0aaYgtgaFjLlkGyjK9PBUHYggD+VS2FRv5No0bvryhifGBNKRjy4S31c9vUunm3MQ1dDQ2dylEBDNCkms3Ng9xRpeTT0SJh47Z54Y+mgT1oLC1IgvRNXpMf3S8aa2bp1O2xjjQa0b2s6mrwD93e5VuayjQ1f6UTmw2XHOZ0S62wCVV7YVOCn6xlaILyT7jduM76gvSSKpTeYE6pFVDVYyTzG92R30j0tH4tlkJp7EvSFlxpxeFrzFWFBsFlSVFrMq+I7HC1IlSPQOnQhRyZaWt7PpEVPe1esQaH0wHpOFpsPeu82UvIE9jL9L6MDv8RB+MutYdBiJQPJem+pyT+ripbNwg=="
+};
