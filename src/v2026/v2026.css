@@ -1,0 +1,1223 @@
+/* Starlit Night: the 2026 gift.
+   Colours:
+   ink      #070a24  top of the sky
+   deep     #0f1544  middle of the sky
+   horizon  #2a2158  faint glow near the ground
+   moon     #eceeff  main text and stars
+   mist     #a3a9d9  quiet text
+   gold     #f3d58a  her 22nd star and the one button
+   Fonts: Cormorant Garamond for words that matter, Jost for small things. */
+
+.v26-root {
+  --ink: #070a24;
+  --deep: #0f1544;
+  --horizon: #2a2158;
+  --moon: #eceeff;
+  --mist: #a3a9d9;
+  --gold: #f3d58a;
+  --coral: #ffb4a8;
+
+  /* Change the fonts here, and in public/index.html. */
+  --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+  --font-text: 'Jost', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  position: relative;
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+  color: var(--moon);
+  font-family: var(--font-text);
+  background:
+    radial-gradient(ellipse 120% 55% at 50% 108%, var(--horizon) 0%, rgba(42, 33, 88, 0) 65%),
+    linear-gradient(180deg, var(--ink) 0%, var(--deep) 100%);
+}
+
+.v26-root *,
+.v26-root *::before,
+.v26-root *::after {
+  box-sizing: border-box;
+}
+
+.v26-sky {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.v26-stage {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  width: 100%;
+  max-width: 780px;
+  padding: clamp(20px, 5vh, 56px) 20px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+/* ---------- Constellation ---------- */
+
+.v26-const {
+  display: block;
+  width: 100%;
+  max-width: 640px;
+  height: auto;
+  margin: 0 0 clamp(12px, 3vh, 24px);
+  overflow: visible;
+}
+
+.v26-const-line {
+  fill: none;
+  stroke: rgba(236, 238, 255, 0.28);
+  stroke-width: 1;
+  stroke-linejoin: round;
+}
+
+.v26-star {
+  fill: var(--moon);
+  opacity: 0.9;
+}
+
+.v26-link-dim {
+  stroke: var(--gold);
+  stroke-width: 1;
+  stroke-dasharray: 3 6;
+  opacity: 0.4;
+  transition: opacity 1.2s ease;
+}
+
+.v26-link-lit {
+  stroke: var(--gold);
+  stroke-width: 1.2;
+  opacity: 0;
+  transition: opacity 1.2s ease 0.3s;
+}
+
+.v26-wait-glow {
+  fill: var(--gold);
+  opacity: 0.16;
+  transition: opacity 0.6s ease;
+}
+
+.v26-ring {
+  fill: none;
+  stroke: var(--gold);
+  stroke-width: 1;
+  stroke-dasharray: 2 4;
+  opacity: 0.95;
+  transition: opacity 0.6s ease;
+}
+
+.v26-ring-dot {
+  fill: var(--gold);
+  opacity: 0.85;
+  transition: opacity 0.6s ease;
+}
+
+.v26-bloom {
+  opacity: 0;
+}
+
+.v26-halo {
+  fill: var(--gold);
+  opacity: 0.32;
+}
+
+.v26-sparkle {
+  fill: var(--gold);
+}
+
+.v26-core {
+  fill: #fff8e3;
+}
+
+.v26-const.lit .v26-link-dim {
+  opacity: 0;
+}
+
+.v26-const.lit .v26-link-lit {
+  opacity: 0.9;
+}
+
+.v26-const.lit .v26-wait-glow,
+.v26-const.lit .v26-ring,
+.v26-const.lit .v26-ring-dot {
+  opacity: 0;
+}
+
+.v26-const.lit .v26-bloom {
+  opacity: 1;
+  animation: v26-ignite 1.8s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+
+@keyframes v26-ignite {
+  0% {
+    transform: scale(0.1);
+    opacity: 0;
+  }
+  55% {
+    transform: scale(1.7);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ---------- Words ---------- */
+
+.v26-title {
+  margin: 0;
+  max-width: 20ch;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2.2rem, 5.6vw, 3.4rem);
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  color: var(--moon);
+  text-wrap: balance;
+}
+
+.v26-sub {
+  margin: 14px 0 0;
+  max-width: 34ch;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.2rem, 2.8vw, 1.5rem);
+  line-height: 1.5;
+  color: var(--mist);
+  text-wrap: balance;
+}
+
+.v26-message {
+  margin: 28px 0 0;
+  max-width: 32ch;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.3rem, 3.1vw, 1.65rem);
+  line-height: 1.6;
+  color: var(--moon);
+  text-wrap: balance;
+}
+
+/* ---------- Countdown ---------- */
+
+.v26-countdown {
+  display: flex;
+  justify-content: center;
+  gap: clamp(14px, 4.5vw, 44px);
+  margin-top: clamp(20px, 4vh, 34px);
+}
+
+.v26-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 3.4rem;
+}
+
+.v26-num {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(2.6rem, 8.2vw, 4.2rem);
+  line-height: 1;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--moon);
+}
+
+.v26-unit-label {
+  margin-top: 8px;
+  font-size: 0.82rem;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  color: var(--mist);
+}
+
+/* ---------- Gate (password) ---------- */
+
+.v26-gate {
+  width: 100%;
+  max-width: 380px;
+  margin-top: clamp(22px, 4vh, 36px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.v26-field {
+  position: relative;
+  width: 100%;
+}
+
+.v26-input {
+  display: block;
+  width: 100%;
+  padding: 13px 64px 13px 64px;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(236, 238, 255, 0.4);
+  border-radius: 0;
+  color: var(--moon);
+  font-family: inherit;
+  font-size: 1.05rem;
+  font-weight: 400;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.v26-input::placeholder {
+  color: var(--mist);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  opacity: 0.85;
+}
+
+.v26-input:focus-visible {
+  border-bottom-color: var(--gold);
+  box-shadow: 0 1px 0 0 var(--gold);
+}
+
+.v26-input:disabled {
+  cursor: not-allowed;
+  border-bottom-style: dashed;
+  border-bottom-color: rgba(236, 238, 255, 0.25);
+}
+
+.v26-toggle {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 8px 6px;
+  background: transparent;
+  border: 0;
+  color: var(--mist);
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.v26-toggle:hover:not(:disabled) {
+  color: var(--moon);
+  text-decoration: underline;
+}
+
+.v26-toggle:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.v26-toggle:disabled {
+  visibility: hidden;
+}
+
+.v26-open {
+  margin-top: 22px;
+  padding: 13px 34px;
+  border-radius: 999px;
+  border: 1px solid var(--gold);
+  background: var(--gold);
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+.v26-open:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.v26-open:focus-visible {
+  outline: 2px solid var(--moon);
+  outline-offset: 3px;
+}
+
+.v26-open:disabled {
+  background: transparent;
+  color: var(--mist);
+  border-color: rgba(163, 169, 217, 0.4);
+  cursor: not-allowed;
+}
+
+.v26-error {
+  min-height: 1.5em;
+  margin: 14px 0 0;
+  color: var(--coral);
+  font-size: 0.95rem;
+}
+
+.v26-note {
+  margin: 14px 0 0;
+  color: var(--mist);
+  font-size: 0.9rem;
+  font-weight: 300;
+}
+
+.v26-shake {
+  animation: v26-shake 0.5s;
+}
+
+@keyframes v26-shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  20%,
+  60% {
+    transform: translateX(-8px);
+  }
+  40%,
+  80% {
+    transform: translateX(8px);
+  }
+}
+
+/* ---------- Footer link ---------- */
+
+.v26-back {
+  position: relative;
+  z-index: 1;
+  margin: 8px 0 28px;
+  padding: 6px 10px;
+  color: var(--mist);
+  font-size: 0.9rem;
+  text-decoration: none;
+  opacity: 0.85;
+}
+
+.v26-back:hover {
+  color: var(--moon);
+  text-decoration: underline;
+}
+
+.v26-back:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Hidden but readable by screen readers. */
+.v26-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-width: 420px) {
+  .v26-input {
+    padding-left: 56px;
+    padding-right: 56px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v26-const.lit .v26-bloom,
+  .v26-shake {
+    animation: none;
+  }
+
+  .v26-link-dim,
+  .v26-link-lit,
+  .v26-wait-glow,
+  .v26-ring,
+  .v26-ring-dot,
+  .v26-input,
+  .v26-open {
+    transition: none;
+  }
+}
+
+/* ---------- Could not read the time ---------- */
+
+.v26-offline {
+  margin-top: 18px;
+  color: var(--coral);
+  font-size: 0.95rem;
+}
+
+.v26-offline p {
+  margin: 0 0 12px;
+}
+
+.v26-retry {
+  padding: 10px 26px;
+  border-radius: 999px;
+  border: 1px solid var(--coral);
+  background: transparent;
+  color: var(--coral);
+  font-family: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.v26-retry:hover {
+  background: rgba(255, 180, 168, 0.12);
+}
+
+.v26-retry:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* ---------- After the gate opens ---------- */
+
+.v26-stage-open {
+  justify-content: flex-start;
+}
+
+.v26-stage-open .v26-message {
+  margin-top: 18px;
+}
+
+.v26-sections {
+  width: 100%;
+  max-width: 600px;
+  margin-top: clamp(28px, 5vh, 44px);
+  text-align: left;
+}
+
+.v26-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 30px;
+}
+
+.v26-tab {
+  padding: 9px clamp(13px, 4vw, 22px);
+  white-space: nowrap;
+  border-radius: 999px;
+  border: 1px solid rgba(163, 169, 217, 0.35);
+  background: transparent;
+  color: var(--mist);
+  font-family: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.v26-tab:hover {
+  color: var(--moon);
+}
+
+.v26-tab.is-active {
+  color: var(--ink);
+  background: var(--moon);
+  border-color: var(--moon);
+}
+
+.v26-tab:focus-visible,
+.v26-letter-head:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+/* Our story: a real sequence in time, so a line with one star per memory */
+
+.v26-story {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 28px;
+  border-left: 1px solid rgba(236, 238, 255, 0.25);
+}
+
+.v26-story-item {
+  position: relative;
+  padding-bottom: 38px;
+}
+
+.v26-story-item:last-child {
+  padding-bottom: 0;
+}
+
+.v26-story-item::before {
+  content: '';
+  position: absolute;
+  left: -33px;
+  top: 0.55em;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--gold);
+  box-shadow: 0 0 0 4px rgba(243, 213, 138, 0.16);
+}
+
+.v26-story-date {
+  margin: 0 0 4px;
+  color: var(--gold);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.v26-story-title {
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.6rem, 4vw, 2rem);
+  line-height: 1.2;
+  color: var(--moon);
+}
+
+.v26-story-text {
+  margin: 0 0 10px;
+  max-width: 62ch;
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.7;
+  color: #d5d8f2;
+}
+
+/* Open when: sealed letters, one open at a time */
+
+.v26-letters {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.v26-letter {
+  border: 1px solid rgba(163, 169, 217, 0.28);
+  border-radius: 14px;
+  background: rgba(15, 21, 68, 0.55);
+  transition: border-color 0.3s ease, background 0.3s ease;
+}
+
+.v26-letter.is-open {
+  border-color: rgba(243, 213, 138, 0.6);
+  background: rgba(15, 21, 68, 0.8);
+}
+
+.v26-letter-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 16px 18px;
+  border: 0;
+  background: transparent;
+  color: var(--moon);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.v26-seal {
+  flex: none;
+  width: 1.6rem;
+  text-align: center;
+  font-size: 1.15rem;
+  color: var(--gold);
+}
+
+.v26-letter-title {
+  flex: 1;
+  font-family: var(--font-display);
+  font-size: clamp(1.3rem, 3.4vw, 1.6rem);
+  line-height: 1.25;
+}
+
+.v26-letter-state {
+  flex: none;
+  font-size: 0.82rem;
+  color: var(--mist);
+}
+
+.v26-letter-body {
+  padding: 2px 22px 24px 58px;
+}
+
+.v26-letter-body p {
+  margin: 0 0 12px;
+  max-width: 58ch;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 3vw, 1.45rem);
+  line-height: 1.55;
+  color: var(--moon);
+}
+
+.v26-letter-body p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 480px) {
+  .v26-letter-body {
+    padding: 2px 18px 22px 18px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v26-tab,
+  .v26-letter {
+    transition: none;
+  }
+}
+
+/* ---------- Make a wish ---------- */
+
+.v26-wish {
+  text-align: center;
+}
+
+.v26-wish-label {
+  display: block;
+  margin-bottom: 16px;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.35rem, 3.4vw, 1.7rem);
+  line-height: 1.35;
+  color: var(--moon);
+}
+
+.v26-wish-text {
+  display: block;
+  width: 100%;
+  padding: 16px 18px;
+  border: 1px solid rgba(163, 169, 217, 0.4);
+  border-radius: 14px;
+  background: rgba(15, 21, 68, 0.55);
+  color: var(--moon);
+  font-family: inherit;
+  font-size: 1.05rem;
+  font-weight: 300;
+  line-height: 1.6;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.v26-wish-text::placeholder {
+  color: var(--mist);
+  opacity: 0.8;
+}
+
+.v26-wish-text:focus-visible {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 1px var(--gold);
+}
+
+.v26-wish-send {
+  margin-top: 18px;
+}
+
+.v26-wish-status {
+  min-height: 1.6em;
+  margin: 18px 0 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.3rem;
+  color: var(--gold);
+}
+
+.v26-wish-note {
+  margin: 6px 0 0;
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--mist);
+}
+
+/* A lantern that rises through the whole screen, then fades out */
+
+.v26-lantern {
+  position: fixed;
+  bottom: -90px;
+  z-index: 5;
+  width: 46px;
+  height: 62px;
+  margin-left: -23px;
+  border-radius: 46% 46% 38% 38%;
+  background: linear-gradient(180deg, #ffe7a8 0%, var(--gold) 55%, #e9a96b 100%);
+  box-shadow:
+    0 0 22px 6px rgba(243, 213, 138, 0.55),
+    0 0 70px 18px rgba(243, 213, 138, 0.2);
+  pointer-events: none;
+  animation-name: v26-rise;
+  animation-timing-function: cubic-bezier(0.25, 0.6, 0.3, 1);
+  animation-fill-mode: forwards;
+}
+
+.v26-lantern::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: -5px;
+  width: 22px;
+  height: 7px;
+  margin-left: -11px;
+  border-radius: 6px 6px 0 0;
+  background: #b98a4a;
+}
+
+.v26-lantern::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -5px;
+  width: 26px;
+  height: 6px;
+  margin-left: -13px;
+  border-radius: 0 0 8px 8px;
+  background: #b98a4a;
+}
+
+@keyframes v26-rise {
+  0% {
+    transform: translate(0, 0) scale(0.7);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  35% {
+    transform: translate(-16px, -38vh) scale(0.9);
+  }
+  65% {
+    transform: translate(14px, -78vh) scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-6px, -125vh) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v26-lantern {
+    animation-name: v26-fade;
+    bottom: 40%;
+  }
+
+  @keyframes v26-fade {
+    0% {
+      opacity: 0;
+    }
+    15%,
+    70% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+}
+
+/* ---------- Shared bits for the new sections ---------- */
+
+.v26-lead {
+  margin: 0;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.35rem, 3.4vw, 1.7rem);
+  line-height: 1.35;
+  color: var(--moon);
+  text-align: center;
+  text-wrap: balance;
+}
+
+.v26-ghost {
+  padding: 13px 30px;
+  border-radius: 999px;
+  border: 1px solid rgba(236, 238, 255, 0.5);
+  background: transparent;
+  color: var(--moon);
+  font-family: inherit;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.v26-ghost:hover {
+  background: rgba(236, 238, 255, 0.08);
+}
+
+.v26-ghost:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.v26-hint {
+  flex-basis: 100%;
+  margin: 4px 0 0;
+  text-align: center;
+  font-size: 0.92rem;
+  font-weight: 300;
+  color: var(--mist);
+}
+
+/* ---------- Candles ---------- */
+
+.v26-candles {
+  text-align: center;
+}
+
+.v26-cake {
+  --breath: 0;
+  display: block;
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  margin: 18px auto 6px;
+  overflow: visible;
+}
+
+.v26-candle-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.v26-flame-lean {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  transform: skewX(calc(var(--breath) * -24deg)) scaleY(calc(1 - var(--breath) * 0.25));
+  transition: transform 0.08s linear;
+}
+
+.v26-flame {
+  transform-box: fill-box;
+  transform-origin: 50% 100%;
+  animation: v26-flicker 1.1s ease-in-out infinite alternate;
+}
+
+.v26-flame-glow {
+  animation: v26-glow-pulse 1.6s ease-in-out infinite alternate;
+}
+
+@keyframes v26-flicker {
+  0% {
+    transform: scale(1, 1) rotate(-1.5deg);
+  }
+  35% {
+    transform: scale(0.94, 1.07) rotate(1deg);
+  }
+  70% {
+    transform: scale(1.05, 0.95) rotate(-0.5deg);
+  }
+  100% {
+    transform: scale(0.97, 1.04) rotate(1.5deg);
+  }
+}
+
+@keyframes v26-glow-pulse {
+  from {
+    opacity: 0.45;
+  }
+  to {
+    opacity: 0.8;
+  }
+}
+
+.v26-smoke {
+  opacity: 0;
+  animation: v26-smoke 2.6s ease-out forwards;
+}
+
+@keyframes v26-smoke {
+  0% {
+    opacity: 0.7;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-34px);
+  }
+}
+
+/* ---------- Catch the stars ---------- */
+
+.v26-catch {
+  text-align: center;
+}
+
+.v26-board {
+  position: relative;
+  height: 340px;
+  margin-top: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(163, 169, 217, 0.28);
+  border-radius: 16px;
+  background: radial-gradient(ellipse 90% 60% at 50% 100%, rgba(42, 33, 88, 0.7), rgba(7, 10, 36, 0.35));
+}
+
+.v26-board-over {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 24px;
+  background: rgba(7, 10, 36, 0.78);
+}
+
+.v26-over-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 5vw, 2.3rem);
+  line-height: 1.15;
+  color: var(--gold);
+}
+
+.v26-over-text {
+  margin: 0 0 6px;
+  max-width: 30ch;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.3rem;
+  line-height: 1.45;
+  color: var(--moon);
+}
+
+.v26-fall {
+  position: absolute;
+  top: -56px;
+  width: 48px;
+  height: 48px;
+  margin-left: -24px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  filter: drop-shadow(0 0 10px rgba(243, 213, 138, 0.75));
+  animation: v26-fall var(--dur, 4s) linear forwards;
+}
+
+.v26-fall svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: var(--gold);
+}
+
+.v26-fall:focus-visible {
+  outline: 2px solid var(--moon);
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+
+@keyframes v26-fall {
+  from {
+    top: -56px;
+    transform: rotate(-14deg);
+  }
+  to {
+    top: 100%;
+    transform: rotate(16deg);
+  }
+}
+
+.v26-dots {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 18px;
+}
+
+.v26-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(163, 169, 217, 0.25);
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.v26-dot.on {
+  background: var(--gold);
+  box-shadow: 0 0 8px rgba(243, 213, 138, 0.8);
+}
+
+.v26-count {
+  margin: 10px 0 0;
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--mist);
+}
+
+/* ---------- Together counter ---------- */
+
+.v26-together {
+  margin: 0 0 40px;
+  text-align: center;
+}
+
+.v26-together p {
+  margin: 0;
+}
+
+.v26-together-lead {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.4rem;
+  color: var(--mist);
+}
+
+.v26-together-days {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(3.6rem, 16vw, 5.6rem);
+  line-height: 1;
+  font-variant-numeric: lining-nums tabular-nums;
+  color: var(--gold);
+}
+
+.v26-together-unit {
+  margin-top: 2px;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  color: var(--moon);
+}
+
+.v26-together-clock {
+  margin-top: 8px;
+  font-size: 0.95rem;
+  font-weight: 300;
+  font-variant-numeric: tabular-nums;
+  color: var(--mist);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v26-flame,
+  .v26-flame-glow {
+    animation: none;
+  }
+
+  .v26-smoke {
+    animation: none;
+    opacity: 0.35;
+  }
+
+  .v26-fall {
+    top: var(--y, 40%);
+    animation: v26-blink var(--dur, 4s) ease-in-out forwards;
+  }
+
+  @keyframes v26-blink {
+    0% {
+      opacity: 0;
+    }
+    15%,
+    80% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+}
+
+/* ---------- Music button ---------- */
+.v26-music {
+  position: fixed;
+  right: clamp(12px, 3vw, 22px);
+  bottom: clamp(12px, 3vw, 22px);
+  z-index: 20;
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(243, 213, 138, 0.45);
+  background: rgba(15, 21, 68, 0.72);
+  backdrop-filter: blur(6px);
+  color: var(--gold);
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.v26-music:hover { transform: scale(1.06); background: rgba(42, 33, 88, 0.85); }
+.v26-music:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.v26-music svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.v26-music.is-muted { color: var(--mist); border-color: rgba(163, 169, 217, 0.4); }
+.v26-music.is-waiting { animation: v26-music-pulse 2s ease-in-out infinite; }
+@keyframes v26-music-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(243, 213, 138, 0.5); }
+  50% { box-shadow: 0 0 0 10px rgba(243, 213, 138, 0); }
+}
+
+/* ---------- Her sky ---------- */
+.v26-hersky { text-align: center; padding: 8px 0 24px; }
+.v26-hersky-moon { display: flex; flex-direction: column; align-items: center; gap: 4px; margin: 10px 0 18px; }
+.v26-moon { width: clamp(150px, 42vw, 200px); height: auto; overflow: visible; animation: v26-moon-float 7s ease-in-out infinite; }
+@keyframes v26-moon-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.v26-moon-halo { fill: rgba(236, 238, 255, 0.35); }
+.v26-moon-dark { fill: #1b2058; }
+.v26-moon-rim { fill: none; stroke: rgba(236, 238, 255, 0.25); stroke-width: 0.8; }
+.v26-hersky-phase { font-family: var(--font-display); font-size: 1.7rem; color: var(--moon); margin: 10px 0 0; }
+.v26-hersky-date { color: var(--gold); letter-spacing: 0.08em; margin: 0; font-size: 0.95rem; }
+.v26-hersky-note { color: var(--mist); font-style: italic; margin: 2px 0 0; font-size: 0.95rem; }
+.v26-hersky-sign { font-family: var(--font-display); font-size: 1.25rem; color: var(--moon); max-width: 30ch; margin: 0 auto 22px; line-height: 1.4; }
+.v26-hersky-facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.v26-hersky-facts > div { padding: 16px 10px; border: 1px solid rgba(163, 169, 217, 0.22); border-radius: 14px; background: rgba(15, 21, 68, 0.45); }
+.v26-fact-num { display: block; font-family: var(--font-display); font-size: clamp(1.4rem, 5.5vw, 1.9rem); color: var(--gold); }
+.v26-fact-label { display: block; color: var(--mist); font-size: 0.85rem; margin-top: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .v26-moon, .v26-music.is-waiting { animation: none; }
+}
+
+/* The finale message can be long: the board grows and the page scrolls as usual. */
+.v26-board.is-won {
+  height: auto;
+  min-height: 340px;
+  overflow: visible;
+}
+.v26-board.is-won .v26-board-over {
+  position: relative;
+  inset: auto;
+  min-height: 340px;
+  padding: 30px 20px;
+  border-radius: 16px;
+}
+.v26-board.is-won .v26-over-text {
+  max-width: 34ch;
+}
+
+/* The 10 second moment for someone who arrives after midnight */
+.v26-moment {
+  min-height: 150px;
+  display: grid;
+  place-items: center;
+  margin-top: 18px;
+}
+.v26-moment-number {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: clamp(5rem, 22vw, 8rem);
+  line-height: 1;
+  color: var(--gold);
+  text-shadow: 0 0 28px rgba(243, 213, 138, 0.55);
+  animation: v26-moment-pop 1s ease-out both;
+}
+@keyframes v26-moment-pop {
+  0% { transform: scale(1.35); opacity: 0; }
+  25% { opacity: 1; }
+  100% { transform: scale(0.92); opacity: 0.55; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .v26-moment-number { animation: none; }
+}

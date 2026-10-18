@@ -1,0 +1,31 @@
+This is a SAMPLE. Copy it to secret/content.txt, then replace everything with your real words.
+The secret folder is never uploaded to GitHub. This sample file is safe to keep in GitHub.
+
+The first lines (before the first == heading ==) are the short message she sees right after she unlocks the gift. Keep it to two or three lines.
+
+== STORY ==
+
+# 14 February 2023 | The day we met
+Write a short memory here, in your own words.
+
+A blank line starts a new paragraph. Add as many entries as you like, oldest first.
+
+# 3 June 2023 | Our first trip
+Another memory. Put the date before the "|" sign and the title after it.
+
+== LETTERS ==
+
+# Open when you miss me
+Write the letter here. It stays sealed until she taps it.
+
+# Open when you need a smile
+Another letter. Each letter starts with a line that begins with a hash sign and a space.
+
+# Open when you doubt yourself
+One more. Three to six letters feels right.
+
+== STARS ==
+
+You caught every star.
+
+One for each year you have lived. Write your own words here, or delete this whole section to keep the default message.
